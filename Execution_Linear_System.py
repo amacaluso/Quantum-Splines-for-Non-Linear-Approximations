@@ -3,6 +3,7 @@ from qiskit.aqua.input import LinearSystemInput
 from qiskit.quantum_info import state_fidelity
 from qiskit.aqua.algorithms.classical import ExactLSsolver
 import numpy as np
+import jupyter
 
 params = {
     'problem': {
@@ -41,6 +42,9 @@ params['input'] = {
     'matrix': matrix,
     'vector': vector
 }
+
+# print(hhl.construct_circuit())
+# hhl = HHL.init_params(params5, algo_input).
 
 
 result = run_algorithm(params)
@@ -114,6 +118,9 @@ print(np.round(m, 3))
 
 algo_input = LinearSystemInput(matrix=matrix, vector=vector)
 hhl = HHL.init_params(params5, algo_input)
+
+print(hhl.construct_circuit())
+
 backend = BasicAer.get_backend('statevector_simulator')
 quantum_instance = QuantumInstance(backend=backend)
 result = hhl.run(quantum_instance)

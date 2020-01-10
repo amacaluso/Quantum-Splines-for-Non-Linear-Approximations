@@ -7,22 +7,26 @@ from sklearn.linear_model import LinearRegression
 
 ''' Ridge Regression with 2 variables'''
 
+# Variables
 x1 = np.random.normal(0 , 0.1, 50)
 x2 = np.random.normal(0 , 0.2, 50)
 
+#coefficients
 beta_0 = 0
 beta_1 = 1
 beta_2 = 2
 
+# Model
 y = beta_0 + beta_1*x1 + beta_2*x2 + np.random.normal(0 , 0.1, 50)
 
-
+# Create design matrix
 X = pd.concat( [pd.Series(x1), pd.Series(x2)], axis = 1 )
 reg = LinearRegression().fit(X, y)
 reg.score(X, y)
 
-
+# Compute the matrix to invert
 XX = X.values.transpose().dot(X.values)
+
 
 np.round( max(np.linalg.svd(XX)[1])/min(np.linalg.svd(XX)[1]), 2)
 
