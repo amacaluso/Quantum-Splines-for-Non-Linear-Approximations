@@ -1,5 +1,5 @@
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import random
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -11,11 +11,13 @@ import numpy as np
 
 
 
+
 def fidelity(hhl, ref):
     solution_hhl_normed = hhl / np.linalg.norm(hhl)
     solution_ref_normed = ref / np.linalg.norm(ref)
     fidelity = state_fidelity(solution_hhl_normed, solution_ref_normed)
     print("fidelity %f" % fidelity)
+    return fidelity
 
 
 

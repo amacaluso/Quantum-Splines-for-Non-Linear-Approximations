@@ -1,74 +1,4 @@
-import numpy as np
-# import matplotlib.pyplot as plt
-import random
-import pandas as pd
-from sklearn.linear_model import LinearRegression
-
-
-''' Ridge Regression with 2 variables'''
-
-# Variables
-x1 = np.random.normal(0 , 0.1, 50)
-x2 = np.random.normal(0 , 0.2, 50)
-
-#coefficients
-beta_0 = 0
-beta_1 = 1
-beta_2 = 2
-
-# Model
-y = beta_0 + beta_1*x1 + beta_2*x2 + np.random.normal(0 , 0.1, 50)
-
-# Create design matrix
-X = pd.concat( [pd.Series(x1), pd.Series(x2)], axis = 1 )
-reg = LinearRegression().fit(X, y)
-reg.score(X, y)
-
-# Compute the matrix to invert
-XX = X.values.transpose().dot(X.values)
-
-
-np.round( max(np.linalg.svd(XX)[1])/min(np.linalg.svd(XX)[1]), 2)
-
-XX_inv = np.linalg.inv( X.values.transpose().dot(X.values) )
-XY = X.values.transpose().dot(y)
-
-XX_inv.dot(XY)
-
-reg = LinearRegression().fit(X, y)
-reg.score(X, y)
-
-reg.score(X, y)
-reg.coef_
-
-
-
-'''Ridge Regression with 2 variables - ill conditioned matrix'''
-
-x1 = np.random.normal(0 , 0.1, 50)
-x2 = x1*2 + np.random.normal(0 , 0.1, 50)
-
-print( 'Coefficiente di correlazione:', np.round( np.corrcoef( [x1, x2] )[0][1], 3) )
-
-y = beta_0 + beta_1*x1 + beta_2*x2 + np.random.normal(0 , 0.1, 50)
-
-X = pd.concat( [pd.Series(x1), pd.Series(x2)], axis = 1 )
-reg = LinearRegression().fit(X, y)
-reg.score(X, y)
-
-XX = X.values.transpose().dot(X.values)
-
-np.round( max(np.linalg.svd(XX)[1])/min(np.linalg.svd(XX)[1]), 2 )
-
-XX_inv = np.linalg.inv( X.values.transpose().dot(X.values) )
-XY = X.values.transpose().dot(y)
-
-print( np.round( XX_inv.dot(XY), 2) )
-
-reg = LinearRegression().fit(X, y)
-np.round( reg.score(X, y), 2)
-
-np.round( reg.coef_, 2 )
+from Utils import *
 
 
 
@@ -120,7 +50,7 @@ max(np.linalg.svd(XX)[1])/min(np.linalg.svd(XX)[1])
 XX_inv = np.linalg.inv( X.values.transpose().dot(X.values) )
 XY = X.values.transpose().dot(y)
 
-XY = vector
+# XY = vector
 
 
 XX_inv.dot(XY)
@@ -135,9 +65,9 @@ reg.coef_
 reg.intercept_
 
 
-XtX = XtX + np.diag(np.repeat(10, 4))
+XX = XX + np.diag(np.repeat(10, 4))
 
-max(np.linalg.svd(XtX)[1])/min(np.linalg.svd(XtX)[1])
+max(np.linalg.svd(XX)[1])/min(np.linalg.svd(XX)[1])
 
 
 
