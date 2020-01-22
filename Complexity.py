@@ -56,9 +56,9 @@ plt.close()
 
 
 
-############################################
-#### +++++++ Condition Number +++++++++ ####
-############################################
+###########################################
+### +++++++ Condition Number +++++++++ ####
+###########################################
 
 dim = 3000
 N = np.arange(2,dim)
@@ -94,6 +94,50 @@ plt.xlim(-1,dim)
 plt.savefig('ridge.png')
 plt.show()
 plt.close()
+
+
+
+
+
+
+############################################
+#### +++++++ Condition Number +++++++++ ####
+############################################
+
+# dim = 3000
+# N = np.arange(2,dim)
+# s = 10
+# k = 10
+# k_up = 20
+# k_dw = 5
+# cost_hhl = (np.log2(N))*(k**2)*(s**pow_s)
+# cost_hhl_up = (np.log2(N))*(k_up**pow_k)*(s**pow_s)
+# cost_hhl_dw = (np.log2(N))*(k_dw**pow_k)*(s**pow_s)
+# cost_gauss = [n**3 for n in N]
+# cost_stressen = [n**2.8 for n in N]
+# cost_conju = N*s*k
+# cost_conju_up = N*s*k_up
+# cost_conju_dw = N*s*k_dw
+#
+# # plt2=plt.twinx()
+# # plt2=plt.twiny()
+# # plt.tick_params(axis='y', labelcolor='g')
+# # plt.tick_params(axis='x', labelcolor='g')
+# #plt.set_ylabel(r"Cost",color="g")
+# plt.plot(N, (np.log2(N))*(k**pow_k)*(s**pow_s), label = 'HHL',  color='deepskyblue',
+#           linestyle='--', linewidth=2)
+# plt.fill_between(N, cost_hhl_dw, cost_hhl_up, color = 'deepskyblue', alpha = 0.1)
+# #                 label = 'HHL ($0.1<\kappa<20$)', alpha = 0.1  )
+# plt.plot(N, cost_conju, label = 'Conjugate Gradient', color='green', linestyle='dotted' )
+# plt.fill_between(N, cost_conju_dw, cost_conju_up, color = 'green', alpha = 0.3 )
+# #                 label = 'Conjugate Gradient ($0.1<\kappa<20$)', alpha = 0.1 )
+# plt.grid(alpha=0.3)
+# plt.legend(loc = 'upper left', framealpha=1, title = 'Ridge Regression')
+# plt.xlim(-1,dim)
+# #plt.title('Performance of Quantum SLP classifier')
+# plt.savefig('ridge.png')
+# plt.show()
+# plt.close()
 
 
 
