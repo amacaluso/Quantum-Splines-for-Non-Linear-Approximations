@@ -1,10 +1,11 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import random
 import pandas as pd
-import numpy as np
 from sklearn.linear_model import LinearRegression
 import seaborn as sns
+import random
+from pylab import *
+from scipy.interpolate import CubicSpline, splev, splrep
+
 
 from qiskit.aqua import run_algorithm
 from qiskit.aqua.input import LinearSystemInput
@@ -16,7 +17,10 @@ from qiskit.aqua import QuantumInstance
 from qiskit.aqua.algorithms.single_sample import HHL
 from qiskit.aqua.utils import random_hermitian
 
+import math
 
+def sigmoid(x):
+  return 1 / (1 + math.exp(-x))
 
 def fidelity(hhl, ref):
     solution_hhl_normed = hhl / np.linalg.norm(hhl)
@@ -24,6 +28,7 @@ def fidelity(hhl, ref):
     fidelity = state_fidelity(solution_hhl_normed, solution_ref_normed)
     print("fidelity %f" % fidelity)
     return fidelity
+
 
 
 

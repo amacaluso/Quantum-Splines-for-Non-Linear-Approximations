@@ -1,7 +1,7 @@
 from Utils import *
 
 n_obs = 1000
-random.seed(1234)
+np.random.seed(1234)
 
 ''' Ridge Regression'''
 # Variables
