@@ -1,9 +1,9 @@
 from Utils import *
 
-x = np.arange(-5, 5, 0.5)
-y = [sigmoid(i) for i in x]
+x = np.arange(-5,5, 0.5)
+y = np.tanh(x)
 cs = CubicSpline(x, y)
-xs = np.arange(-5, 5, 0.1)
+xs = np.arange(-6, 6, 0.1)
 
 fig, ax = plt.subplots(figsize=(6.5, 4))
 ax.plot(x, y, 'o', label='data')
@@ -11,40 +11,46 @@ ax.plot(xs, cs(xs), label="S")
 ax.plot(xs, cs(xs, 1), label="S'")
 ax.plot(xs, cs(xs, 2), label="S''")
 ax.plot(xs, cs(xs, 3), label="S'''")
-ax.set_xlim(-3, 3)
-ax.set_ylim(-.1, 1.1)
+#ax.set_xlim(-0.5, 9.5)
 ax.legend(loc='lower right', ncol=2)
-ax.grid()
 plt.show()
 
 
-X = [-2, -1/2, 1/2, 2]
 
-M = pd.concat([poly_data(x) for x in X], axis = 1).transpose()
-y = [sigmoid(x) for x in X]
+'''Linear System'''
+# one polynoamial
+# Hyperbolic tangent between in (-2,2)
+X = [-1, 0, 1 ]
+y = y = [0.047, 0.26, 0.26, 0.5]
+eq1  = pd.Series([1,-1, 0, 0])
+eq2  = pd.Series([1, 0, 0, 0])
+eq3  = pd.Series([0, 0, 1, 0])
+eq4  = pd.Series([0, 0, 1, 1])
 
-'''Linear System with classical inversion'''
-# sigmoid between in (-2,2)
+y = [0.047, 0.26, 0.26, 0.5]
+M = pd.concat([eq1, eq2, eq3, eq4], axis = 1).transpose()
 M_inv = np.linalg.inv(M)
+
 print(M_inv)
+print(y)
+
 beta_classical = M_inv.dot(y)
 print(beta_classical)
-
 # Evaluation single observation
-x_new = 2
-y_new = poly_data(x_new).to_numpy().dot(beta_classical)
+x_new = 1/2
+y_new = beta_classical[2] + beta_classical[3]*x_new
 print(y_new)
 
-
-'''Quantum Linear inversion'''
-
 matrix = M.to_numpy().tolist()
+# matrix  = M.to_numpy().tolist()
 vector = y
 
 params['input'] = {
     'name': 'LinearSystemInput',
     'matrix': matrix,
     'vector': vector }
+
+
 
 result = run_algorithm(params)
 print("solution ", result['solution'])
@@ -58,12 +64,13 @@ fidelity(result['solution'], result_ref['solution'])
 beta_quantum = np.round(result['solution'], 5)
 print(beta_quantum)
 
+
 # Generate dataset for test observation
 x_points = np.random.uniform(-2,2,100)
 X = []
 
 for x in x_points:
-    x_poly = pd.Series([1, x, x**2, x**3])
+    x_trans = pd.Series([1, x, x**2, x**3])
     X.append(x_poly)
 X = pd.DataFrame(X)
 Y_new_c = X.dot(beta_classical)

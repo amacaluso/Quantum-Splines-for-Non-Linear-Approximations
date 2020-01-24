@@ -20,7 +20,7 @@ from qiskit.aqua.utils import random_hermitian
 import math
 
 def sigmoid(x):
-  return 1 / (1 + math.exp(-x))
+  return 1 / (1 + math.exp(-4*x))
 
 def fidelity(hhl, ref):
     solution_hhl_normed = hhl / np.linalg.norm(hhl)
@@ -44,3 +44,10 @@ params = {
     'backend': { 'provider': 'qiskit.BasicAer',
                  'name': 'statevector_simulator'}
 }
+
+def poly_data(x):
+    return pd.Series([1, x, x**2, x**3])
+
+
+def lin_data(x):
+    return pd.Series([1, x])
