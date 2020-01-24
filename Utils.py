@@ -45,9 +45,12 @@ params = {
                  'name': 'statevector_simulator'}
 }
 
-def poly_data(x):
+def cube_data(x):
     return pd.Series([1, x, x**2, x**3])
 
 
 def lin_data(x):
     return pd.Series([1, x])
+
+def quad_data(x):
+    return pd.Series([1, x, x**2])
