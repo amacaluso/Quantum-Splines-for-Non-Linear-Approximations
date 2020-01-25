@@ -19,8 +19,6 @@ from qiskit.aqua.utils import random_hermitian
 
 import math
 
-def sigmoid(x):
-  return 1 / (1 + math.exp(-4*x))
 
 def fidelity(hhl, ref):
     solution_hhl_normed = hhl / np.linalg.norm(hhl)
