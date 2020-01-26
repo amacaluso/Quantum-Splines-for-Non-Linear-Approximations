@@ -1,5 +1,4 @@
 from Utils import *
-
 folder = 'results/'
 
 lower = -1
