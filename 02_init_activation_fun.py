@@ -2,29 +2,29 @@ from Utils import *
 
 
 ## Arctan
-def function(x):
-  return np.arctan(x)
+def function(x, c = 1):
+  return c + np.arctan(x)
 label_function = 'arctan'
 execfile('04_experiments_act_fun.py')
 
 
 ## Tanh
-def function(x):
-  return np.tanh(x)
+def function(x, c = 1):
+  return c + np.tanh(x)
 label_function = 'tanh'
 execfile('04_experiments_act_fun.py')
 
 
 ## Relu
-def function(x):
-  return max(0.0, x)
+def function(x, c = 1):
+  return c + max(0.0, x)
 label_function = 'relu'
 execfile('04_experiments_act_fun.py')
 
 
 ## Sigmoid
-def function(x):
-  return 1 / (1 + math.exp(-4*x))
+def function(x, c = 0):
+  return c + 1 / (1 + math.exp(-4*x))
 label_function = 'sigmoid'
 execfile('04_experiments_act_fun.py')
 

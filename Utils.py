@@ -17,6 +17,10 @@ from qiskit.aqua import QuantumInstance
 from qiskit.aqua.algorithms.single_sample import HHL
 from qiskit.aqua.utils import random_hermitian
 
+
+import matplotlib.artist as artists
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import savefig
 import math
 
 

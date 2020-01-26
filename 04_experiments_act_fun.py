@@ -23,6 +23,8 @@ fid = []
 for i in  range(len(M)):
     m = M[i]
     y = Y[i]
+    if y == [0.0, 0.0]:
+        y = [el +10**-4 for el in y]
     matrix = m.to_numpy().tolist()
     vector = y
 
