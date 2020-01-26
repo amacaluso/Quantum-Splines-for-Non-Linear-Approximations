@@ -4,6 +4,8 @@ from Utils import *
 def function(x):
   return 1 / (1 + math.exp(-4*x))
 
+label_function = 'sigmoid'
+
 lower = -1
 upper = 1
 step = .1
@@ -86,7 +88,7 @@ ax.grid(alpha = 0.3)
 ax.set_xlabel(r'x')
 ax.set_ylabel(r'$f(x)$')
 plt.legend()
-plt.savefig('results/sigmoid_linear_spline.png', dpi =1000)
+plt.savefig('results/' + label_function + '_linear_spline.png', dpi =1000)
 plt.show()
 plt.close()
 

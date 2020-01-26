@@ -1,5 +1,7 @@
 from Utils import *
-from scipy.special import softmax as function
+from scipy.special import softmax
+
+function = softmax
 
 ## function
 label_function = 'Softmax'
@@ -96,19 +98,19 @@ plt.close()
 
 
 
-# x = np.arange(-2,2, 0.25)
-# y = [function(i) for i in x]
-# cs = CubicSpline(x, y)
-# xs = np.arange(-2, 2, 0.1)
-#
-# fig, ax = plt.subplots(figsize=(6.5, 4))
-# ax.plot(x, y, 'o', label='data')
-# ax.plot(xs, cs(xs), label="S")
-# # ax.plot(xs, cs(xs, 1), label="S'")
-# #ax.plot(xs, cs(xs, 2), label="S''")
-# #ax.plot(xs, cs(xs, 3), label="S'''")
-# #ax.set_xlim(-0.5, 9.5)
-# ax.legend(loc='lower right')#), ncol=2)
-# plt.grid()
-# plt.show()
+x = np.arange(-2,2, 0.25)
+y = [function(i) for i in x]
+cs = CubicSpline(x, y)
+xs = np.arange(-2, 2, 0.1)
+
+fig, ax = plt.subplots(figsize=(6.5, 4))
+ax.plot(x, y, 'o', label='data')
+ax.plot(xs, cs(xs), label="S")
+# ax.plot(xs, cs(xs, 1), label="S'")
+#ax.plot(xs, cs(xs, 2), label="S''")
+#ax.plot(xs, cs(xs, 3), label="S'''")
+#ax.set_xlim(-0.5, 9.5)
+ax.legend(loc='lower right')#), ncol=2)
+plt.grid()
+plt.show()
 

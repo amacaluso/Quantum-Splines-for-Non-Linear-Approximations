@@ -1,10 +1,11 @@
 from Utils import *
 
-## function
-def function(z,alpha = .3):
-	return z if z >= 0 else alpha*(e**z -1)
 
-label_function = 'Elu'
+## function
+def function(x):
+  return np.arctan(x)
+
+label_function = 'Arctan'
 
 lower = -1
 upper = 1
@@ -72,7 +73,6 @@ for i in range(len(X)):
 x_new = [item for sublist in X for item in sublist]
 y = [function(j) for j in x_new]
 
-
 x_function = np.arange(lower, upper, step/4)
 y_function = [function(j) for j in x_function]
 
@@ -89,7 +89,7 @@ ax.grid(alpha = 0.3)
 ax.set_xlabel(r'x')
 ax.set_ylabel(r'$f(x)$')
 plt.legend()
-plt.savefig('results/' + label_function + 'linear_spline.png', dpi =1000)
+plt.savefig('results/' + label_function + '_linear_spline.png', dpi =1000)
 plt.show()
 plt.close()
 
@@ -105,11 +105,10 @@ F = pd.DataFrame(fid)
 F.to_csv('results/' + label_function + '_fidelity.csv', index=False)
 
 
-#
-# ## function
-# def function(z,alpha = .3):
-# 	return z if z >= 0 else alpha*(e**z -1)
-#
+
+
+
+
 # x = np.arange(-2,2, 0.25)
 # y = [function(i) for i in x]
 # cs = CubicSpline(x, y)

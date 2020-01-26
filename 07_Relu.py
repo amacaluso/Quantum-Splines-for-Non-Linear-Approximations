@@ -1,12 +1,12 @@
 from Utils import *
 
 ## function
-def function(z,alpha = .3):
-	return z if z >= 0 else alpha*(e**z -1)
+def function(x):
+  return max(0.0, x)
 
-label_function = 'Elu'
+label_function = 'Relu'
 
-lower = -1
+lower = -.09
 upper = 1
 step = .1
 
@@ -72,12 +72,11 @@ for i in range(len(X)):
 x_new = [item for sublist in X for item in sublist]
 y = [function(j) for j in x_new]
 
-
 x_function = np.arange(lower, upper, step/4)
 y_function = [function(j) for j in x_function]
 
 fig, ax = plt.subplots(figsize=(6.5, 4))
-ax.plot(x_function, y_function, label=r'$f(x)=\frac{1}{1+e^{4*x}}$')
+ax.plot(x_function, y_function, label = label_function)
 # ax.plot(xs, cs(xs), label = 'Cubic Spline')
 ax.plot(x_new, qy, color='red',  label = 'Quantum LS', linestyle='dotted')
 ax.plot(x_new, cy, color='green', label = 'Classical LS', linestyle='dashed')
@@ -89,27 +88,16 @@ ax.grid(alpha = 0.3)
 ax.set_xlabel(r'x')
 ax.set_ylabel(r'$f(x)$')
 plt.legend()
-plt.savefig('results/' + label_function + 'linear_spline.png', dpi =1000)
+plt.savefig('results/' + label_function + '_linear_spline.png', dpi =1000)
 plt.show()
 plt.close()
 
 
-data = pd.DataFrame()
-data['x'] = x_new
-data['y'] = y
-data['quantum_beta'] = qy
-data['classical_beta'] = cy
-data.to_csv('results/' + label_function + '_data.csv', index=False)
-
-F = pd.DataFrame(fid)
-F.to_csv('results/' + label_function + '_fidelity.csv', index=False)
 
 
-#
-# ## function
-# def function(z,alpha = .3):
-# 	return z if z >= 0 else alpha*(e**z -1)
-#
+
+
+
 # x = np.arange(-2,2, 0.25)
 # y = [function(i) for i in x]
 # cs = CubicSpline(x, y)
