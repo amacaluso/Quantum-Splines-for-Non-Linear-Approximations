@@ -6,7 +6,7 @@ def function(x):
 
 label_function = 'Relu'
 
-lower = -.09
+lower = -1
 upper = 1
 step = .1
 

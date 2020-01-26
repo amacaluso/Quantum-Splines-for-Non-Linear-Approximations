@@ -1,11 +1,3 @@
-from Utils import *
-
-
-## function
-def function(x):
-  return np.arctan(x)
-
-label_function = 'Arctan'
 
 lower = -1
 upper = 1
@@ -82,7 +74,7 @@ ax.plot(x_function, y_function, label=label_function)
 ax.plot(x_new, qy, color='red',  label = 'Quantum LS', linestyle='dotted')
 ax.plot(x_new, cy, color='green', label = 'Classical LS', linestyle='dashed')
 x_fid = np.arange(lower + .05, upper, step).tolist()
-ax.scatter(x_fid, fid, color = 'limegreen', label = 'Fidelity')
+ax.scatter(x_fid, fid, color = 'limegreen', label = 'Fidelity', s = 10)
 ax.set_xlim(-1.1, 1.1)
 #ax.set_ylim(-.1,1.1)
 ax.grid(alpha = 0.3)
@@ -101,7 +93,7 @@ data['quantum_beta'] = qy
 data['classical_beta'] = cy
 data.to_csv('results/' + label_function + '_data.csv', index=False)
 
-F = pd.DataFrame(fid)
+F = pd.DataFrame(fid).fillna(0)
 F.to_csv('results/' + label_function + '_fidelity.csv', index=False)
 
 
