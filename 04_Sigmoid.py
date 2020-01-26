@@ -76,7 +76,7 @@ x_function = np.arange(lower, upper, step/4)
 y_function = [function(j) for j in x_function]
 
 fig, ax = plt.subplots(figsize=(6.5, 4))
-ax.plot(x_function, y_function, label=r'$f(x)=\frac{1}{1+e^{4*x}}$')
+ax.plot(x_function, y_function, label=label_function)
 # ax.plot(xs, cs(xs), label = 'Cubic Spline')
 ax.plot(x_new, qy, color='red',  label = 'Quantum LS', linestyle='dotted')
 ax.plot(x_new, cy, color='green', label = 'Classical LS', linestyle='dashed')

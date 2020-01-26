@@ -76,41 +76,51 @@ x_function = np.arange(lower, upper, step/4)
 y_function = [function(j) for j in x_function]
 
 fig, ax = plt.subplots(figsize=(6.5, 4))
-ax.plot(x_function, y_function, label=r'$f(x)=\frac{1}{1+e^{4*x}}$')
+ax.plot(x_function, y_function, label=label_function)
 # ax.plot(xs, cs(xs), label = 'Cubic Spline')
 ax.plot(x_new, qy, color='red',  label = 'Quantum LS', linestyle='dotted')
 ax.plot(x_new, cy, color='green', label = 'Classical LS', linestyle='dashed')
 x_fid = np.arange(lower + .05, upper, step).tolist()
 ax.scatter(x_fid, fid, color = 'limegreen', label = 'Fidelity')
 ax.set_xlim(-1.1, 1.1)
-#ax.set_ylim(-.1,1.1)
+ax.set_ylim(-.1,1.1)
 ax.grid(alpha = 0.3)
 ax.set_xlabel(r'x')
 ax.set_ylabel(r'$f(x)$')
 plt.legend()
-plt.savefig('results/' + label_function + '_linear_spline.png', dpi =1000)
+plt.savefig('results/' + label_function + 'linear_spline.png', dpi =1000)
 plt.show()
 plt.close()
 
 
+data = pd.DataFrame()
+data['x'] = x_new
+data['y'] = y
+data['quantum_beta'] = qy
+data['classical_beta'] = cy
+data.to_csv('results/' + label_function + '_data.csv', index=False)
+
+F = pd.DataFrame(fid)
+F.to_csv('results/' + label_function + '_fidelity.csv', index=False)
 
 
 
 
 
-x = np.arange(-2,2, 0.25)
-y = [function(i) for i in x]
-cs = CubicSpline(x, y)
-xs = np.arange(-2, 2, 0.1)
 
-fig, ax = plt.subplots(figsize=(6.5, 4))
-ax.plot(x, y, 'o', label='data')
-ax.plot(xs, cs(xs), label="S")
-# ax.plot(xs, cs(xs, 1), label="S'")
-#ax.plot(xs, cs(xs, 2), label="S''")
-#ax.plot(xs, cs(xs, 3), label="S'''")
-#ax.set_xlim(-0.5, 9.5)
-ax.legend(loc='lower right')#), ncol=2)
-plt.grid()
-plt.show()
+# x = np.arange(-2,2, 0.25)
+# y = [function(i) for i in x]
+# cs = CubicSpline(x, y)
+# xs = np.arange(-2, 2, 0.1)
+#
+# fig, ax = plt.subplots(figsize=(6.5, 4))
+# ax.plot(x, y, 'o', label='data')
+# ax.plot(xs, cs(xs), label="S")
+# # ax.plot(xs, cs(xs, 1), label="S'")
+# #ax.plot(xs, cs(xs, 2), label="S''")
+# #ax.plot(xs, cs(xs, 3), label="S'''")
+# #ax.set_xlim(-0.5, 9.5)
+# ax.legend(loc='lower right')#), ncol=2)
+# plt.grid()
+# plt.show()
 
