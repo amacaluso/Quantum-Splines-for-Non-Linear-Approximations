@@ -1,10 +1,4 @@
-
-lower = -1
-upper = 1
-step = .1
-
-
-'''Linear System'''
+'''Linear System for Linear B-Spline'''
 
 interval = np.arange(lower,upper + .03, step)
 M = []
@@ -23,8 +17,6 @@ fid = []
 for i in  range(len(M)):
     m = M[i]
     y = Y[i]
-    if y == [0.0, 0.0]:
-        y = [el +10**-4 for el in y]
     matrix = m.to_numpy().tolist()
     vector = y
 
@@ -64,24 +56,23 @@ for i in range(len(X)):
         qy.append(q_beta[i][0]+x*q_beta[i][1])
         cy.append(c_beta[i][0] + x * c_beta[i][1])
 
-x_new = [item for sublist in X for item in sublist]
-y = [function(j) for j in x_new]
+x = [item for sublist in X for item in sublist]
+y = [function(j) for j in x]
 
-x_function = np.arange(lower, upper, step/4)
-y_function = [function(j) for j in x_function]
 
 fig, ax = plt.subplots(figsize=(6.5, 4))
-ax.plot(x_function, y_function, label=label_function)
+ax.plot(x, y, label=label_function)
 # ax.plot(xs, cs(xs), label = 'Cubic Spline')
-ax.plot(x_new, qy, color='red',  label = 'Quantum LS', linestyle='dotted')
-ax.plot(x_new, cy, color='green', label = 'Classical LS', linestyle='dashed')
+ax.plot(x, qy, color='red',  label = 'Quantum LS', linestyle='dotted')
+ax.plot(x, cy, color='green', label = 'Classical LS', linestyle='dashed',
+        dashes = (5, 7),linewidth = 1.3)
 x_fid = np.arange(lower + .05, upper, step).tolist()
 ax.scatter(x_fid, fid, color = 'limegreen', label = 'Fidelity', s = 10)
 ax.set_xlim(-1.1, 1.1)
 #ax.set_ylim(-.1,1.1)
 ax.grid(alpha = 0.3)
 ax.set_xlabel(r'x')
-ax.set_ylabel(r'$f(x)$')
+ax.set_ylabel(r'$f(x)$', rotation = 0)
 plt.legend()
 plt.savefig('results/' + label_function + '_linear_spline.png', dpi =1000)
 plt.show()
@@ -89,13 +80,15 @@ plt.close()
 
 
 data = pd.DataFrame()
-data['x'] = x_new
+data['x'] = x
 data['y'] = y
 data['quantum_beta'] = qy
 data['classical_beta'] = cy
 data.to_csv('results/' + label_function + '_data.csv', index=False)
 
 F = pd.DataFrame(fid).fillna(0)
+F['x'] = x_fid
+F.columns = ['Fidelity', 'x']
 F.to_csv('results/' + label_function + '_fidelity.csv', index=False)
 
 
@@ -118,4 +111,4 @@ F.to_csv('results/' + label_function + '_fidelity.csv', index=False)
 # ax.legend(loc='lower right')#), ncol=2)
 # plt.grid()
 # plt.show()
-
+#

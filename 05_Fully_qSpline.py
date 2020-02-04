@@ -1,124 +1,138 @@
 from Utils import *
-lower = -1
-upper = 1
-step = .1
 
-data = pd.read_csv('data_full.csv')
-data_fid = pd.read_csv('fid_full.csv')
-
-
-fig = plt.figure()
-
-'''Tanh'''
-label = 'tanh'
-# Creating the figure with four subplots, 2 per column/row
-y = (data.y_tanh*2)-1
-x = data.x
-y_quantum = (data.tanh_quantum*2)+1
-y_classic = (data.tanh_classical*2)+1
-
-
-ax = plt.subplot(221)
-ax.plot(x, y, label=label)
-ax.plot(x, y_quantum, color='red', linestyle='dotted')
-ax.plot(x, y_classic, color='limegreen', linestyle='dashed')
-x_fid = data_fid.x
-ax.scatter(x_fid, data_fid.tanh, color = 'cyan', label = 'Fidelity', s = 10)
-ax.set_xlim(-1.1, 1.1)
-#ax.set_ylim(-.1,1.1)
-#ax.grid(True, which='minor', alpha = 0.3)
-#ax.set_xlabel(r'x')
-ax.set_title(label)
+## Tanh
+def function(x, c = 1):
+  return (c + np.tanh(x))*c/2
+label_function = 'tanh'
+execfile('06_quantum_splines.py')
 
 
 
-''' Sigmoid '''
-label = 'sigmoid'
+## Sigmoid
+def function(x, c = 0):
+  return c + 1 / (1 + math.exp(-4*x))
+label_function = 'sigmoid'
+execfile('06_quantum_splines.py')
 
 
-# Creating the figure with four subplots, 2 per column/row
-y = data.y_sig
-x = data.x
+d_sig = pd.read_csv('results/sigmoid_full_data.csv')
+d_tanh = pd.read_csv('results/tanh_full_data.csv')
 
-ax3 = plt.subplot(222)
-ax3.plot(x, y, label=label)
-ax3.plot(x, data.sig_quantum, color='red', linestyle='dotted')
-ax3.plot(x, data.sig_classical, color='limegreen', linestyle='dashed')
-ax3.scatter(x_fid, data_fid.sig, color = 'cyan', label = 'Fidelity', s = 10)
-ax3.set_xlim(-1.1, 1.1)
-#ax.set_ylim(-.1,1.1)
-#ax.grid(True, which='minor', alpha = 0.3)
-#ax.set_xlabel(r'x')
-ax3.set_title(label)
-ax3.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
+
+interval = np.arange(lower,upper + .03, step)
+
+X = []
+for i in range(1, len(interval)):
+    # i =1
+    X.append(np.arange(interval[i - 1], interval[i], 0.05).tolist())
+
+x = [item for sublist in X for item in sublist]
+y = [(function(j)*2)-1 for j in x]
+d_tanh.y = y
+
+rss_quantum = [np.sum(np.square(d_sig.y - d_sig.quantum_beta)),
+               np.sum(np.square(d_tanh.y - d_tanh.quantum_beta))]
+
+rss_classic = [np.sum(np.square(d_sig.y - d_sig.classical_beta)),
+               np.sum(np.square(d_tanh.y - d_tanh.classical_beta))]
+
+fid_avg = [ np.average(fid_full.relu), np.average(fid_full.elu), np.average(fid_full.tanh),
+            np.average(fid_full.sig), np.average(fid_full.arct)]
+
+
+tab = pd.DataFrame([pd.Series(functions + ['arct']), pd.Series(rss_classical),
+                   pd.Series(rss_quantum), pd.Series(fid_avg)])
+
+tab = tab.transpose()
+tab.columns = ['Function', 'RSS (classical)', 'RSS(Quantum)', 'AVG FIdelity']
+
+tab.to_csv('results/table_results.csv', index = False)
 
 
 
 
-'''Relu'''
-label = 'relu'
-
-# Creating the figure with four subplots, 2 per column/row
-y = data.y_relu-1
-
-ax1 = plt.subplot(224)
-ax1.plot(x, y, label=label)
-ax1.plot(x, data.relu_quantum, color='red', linestyle='dotted')
-ax1.plot(x, data.relu_classical, color='limegreen', linestyle='dashed')
-x_fid = data_fid.x
-ax1.scatter(x_fid, data_fid.tanh, color = 'cyan', label = 'Fidelity', s = 10)
-ax1.set_xlim(-1.1, 1.1)
-#ax.set_ylim(-.1,1.1)
-ax1.grid( alpha = 0.3)
-#ax.set_xlabel(r'x')
-ax1.set_title(label)
-ax1.set_xticks(np.round(np.arange(-1, 1.1, .2),1).tolist())
-
-
-
-''' Elu '''
-label = 'elu'
-
-# Creating the figure with four subplots, 2 per column/row
-y = data.y_elu-0.3
-x = data.x
-y_quantum = data.elu_quantum +0.7
-y_classic = data.elu_classical+0.7
-
-ax2 = plt.subplot(223)
-ax2.plot(x, y, label=label)
-ax2.plot(x, y_quantum, color='red', linestyle='dotted')
-ax2.plot(x, y_classic, color='limegreen', linestyle='dashed')
-x_fid = data_fid.x
-ax2.scatter(x_fid, data_fid.elu, color = 'cyan', label = 'Fidelity', s = 10)
-ax2.set_xlim(-1.1, 1.1)
-#ax.set_ylim(-.1,1.1)
-#ax.grid(True, which='minor', alpha = 0.3)
-#ax.set_xlabel(r'x')
-ax2.set_title(label)
-
-handles, labels = ax.get_legend_handles_labels()
-fig.legend(handles, labels, loc='lower center', bbox_to_anchor=(0.5, -0.5),
-           ncol = 4, borderaxespad=1 )
-
-#fig.savefig(folder + 'results_4x.png', bbox_extra_artists=(leg, suptitle,), bbox_inches='tight')
-plt.show()
-plt.close()
-
+# data['label'] = label_function
+# data_sig = data.copy()
+# data_fid_sig = F.copy()
+#
+#
+# data.quantum_beta = data.quantum_beta - 1
+# data.classical_beta = data.classical_beta - 1
+# data['label'] = label_function
+#
+# data_tanh = data.copy()
+# data_fid_tanh = F.copy()
+#
+# ## Relu
+# def function(x, c = 1):
+#   return c + max(0.0, x)
+# label_function = 'relu'
+# execfile('06_quantum_splines.py')
+#
+# data.quantum_beta = data.quantum_beta - 1
+# data.classical_beta = data.classical_beta - 1
+# data['label'] = label_function
+#
+# data_relu = data.copy()
+# data_fid_relu = F.copy()
+#
+# ## Elu
+# def function(z,alpha = .3, c = 2):
+# 	return c + z if z >= 0 else c + alpha*(e**z -1)
+# label_function = 'elu'
+# execfile('06_quantum_splines.py')
+#
+# data.quantum_beta = data.quantum_beta - 1
+# data.classical_beta = data.classical_beta - 1
+# data['label'] = label_function
+#
+# data_elu = data.copy()
+# data_fid_elu = F.copy()
+#
+#
+# ## Arctan
+# def function(x, c = 1):
+#   return c + np.arctan(x)
+# label_function = 'arctan'
+# execfile('06_quantum_splines.py')
+#
+# data.quantum_beta = data.quantum_beta - 1
+# data.classical_beta = data.classical_beta - 1
+# data['label'] = label_function
+#
+# data_arct = data.copy()
+# data_fid_arct = F.copy()
+#
+#
+#
+#
 
 #
-# functions = ['sigmoid', 'elu', 'arctan', 'relu', 'tanh']
-# data = pd.read_csv(folder + f + '_data.csv')
+# d_arct = data_arct.loc[ :, ['y', 'quantum_beta', 'classical_beta']]
+# d_arct.columns = ['y_arct', 'arct_quantum', 'arct_classical']
 #
-# for f in functions:
-#     data = pd.read_csv(folder + f + '_data.csv')
-#     data_fid = pd.read_csv(folder + f + '_fidelity.csv')
-#     data_fid.x = np.arange(lower + .05, upper, step).tolist()
-#     data_fid.columns = ['fidelity', 'x']
-
-
-
-
+# d_sig = data_sig.loc[ :, ['y', 'quantum_beta', 'classical_beta']]
+# d_sig.columns = ['y_sig',  'sig_quantum', 'sig_classical']
+#
+# d_relu = data_relu.loc[ :, ['y', 'quantum_beta', 'classical_beta']]
+# d_relu.columns = ['y_relu', 'relu_quantum', 'relu_classical']
+#
+# d_elu = data_elu.loc[ :, ['y', 'quantum_beta', 'classical_beta']]
+# d_elu.columns = ['y_elu','elu_quantum', 'elu_classical']
+#
+# x = data_tanh['x']
+# y = data_tanh['y']
+#
+# data_full = pd.concat([x, d_sig, d_relu, d_elu, d_arct, d_tanh], axis = 1)
+# fid_full = pd.concat([data_fid_sig['x'],
+#                       data_fid_sig['Fidelity'], data_fid_relu['Fidelity'],
+#                       data_fid_elu['Fidelity'], data_fid_arct['Fidelity'],
+#                       data_fid_tanh['Fidelity']], axis = 1)
+# fid_full.columns = ['x', 'sig', 'relu', 'elu', 'arct', 'tanh']
+# data_full.to_csv( 'data_full.csv', index = False)
+# fid_full.to_csv( 'fid_full.csv', index = False)
+#
+#
 # x = data_full.x
 # functions = ['relu', 'elu', 'tanh', 'sig']
 #
@@ -129,7 +143,7 @@ plt.close()
 # ax4 = plt.subplot(224)
 #
 # f = functions[0]
-# y = data_full['y_'+f]
+# # y = data_full['y_'+f]
 # # ax1.plot(x, y)
 # # ax.plot(xs, cs(xs), label = 'Cubic Spline')
 # qy = data_full[f+'_quantum']
@@ -216,7 +230,7 @@ plt.close()
 # handles, labels = ax4.get_legend_handles_labels()
 # fig.legend(handles, labels, loc='lower center', bbox_to_anchor=(0.5, 0.),
 #            ncol = 3, borderaxespad=0)
-
+#
 # # plt.legend()
 # plt.savefig('results/full_spline.png', dpi =800)
 # plt.show()
