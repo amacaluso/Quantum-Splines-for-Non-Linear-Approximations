@@ -79,9 +79,9 @@ ax1.scatter(fid_sig.x, fid_sig.Fidelity, color = 'cornflowerblue', label = 'Fide
 ax1.set_xlim(-1.1, 1.1)
 ax1.grid(alpha = 0.3)
 ax1.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
-handles, labels = ax.get_legend_handles_labels()
-fig.legend(handles, labels, loc='lower center', bbox_to_anchor=(0.5, -.05),
-           ncol = 4, borderaxespad=-0.5)
+# handles, labels = ax.get_legend_handles_labels()
+# fig.legend(handles, labels, loc='lower center', bbox_to_anchor=(0.5, -.05),
+#            ncol = 4, borderaxespad=-0.5)
 ax1.text(0.80, 0.1, 'Tanh',
         transform=ax1.transAxes, ha="left")
 plt.savefig('results/full_qSpline.png', dpi =1000)

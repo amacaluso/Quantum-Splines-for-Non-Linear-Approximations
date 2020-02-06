@@ -19,7 +19,7 @@ x_fid = data_fid.x
 fid = data_fid.Fidelity
 
 
-fig = plt.figure(figsize=(6,3))
+fig = plt.figure(figsize=(6,2.5))
 
 # Full Qspline
 ax = plt.subplot(121)

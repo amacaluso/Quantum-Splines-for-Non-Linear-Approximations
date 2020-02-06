@@ -86,7 +86,7 @@ data.elu_quantum = data.elu_quantum + .7
 data.elu_classical = data.elu_classical +.7
 
 ax4 = plt.subplot(224)
-ax4.plot(x, y, color='orange', label = 'Classic spline', zorder=1)
+ax4.plot(x, data.y_elu, color='orange', label = 'Classic spline', zorder=1)
 ax4.plot(x, data.elu_quantum, color='steelblue',  label = 'Qspline')
 ax4.plot(x, data.elu_classical, label='Activation', color = 'sienna', linestyle='dotted', dashes=(1,1.5), zorder=2, linewidth=3)
 ax4.scatter(x_fid, data_fid.elu, color = 'cornflowerblue', label = 'Fidelity', s = 10)
@@ -99,9 +99,9 @@ ax4.text(0.80, 0.1, 'Elu',
 #fig.subplots_adjust(top=.9, left=0.1, right=0.9, bottom=.3)
 # create some space below the plots by increasing the bottom-value
 #fig.tight_layout(pad=.01)
-handles, labels = ax1.get_legend_handles_labels()
-fig.legend(handles, labels, loc='lower center',
-           ncol = 4, bbox_to_anchor=(0.45, -.02), borderaxespad=1.)
+# handles, labels = ax1.get_legend_handles_labels()
+# fig.legend(handles, labels, loc='lower center',
+#            ncol = 4, bbox_to_anchor=(0.45, -.02), borderaxespad=1.)
 fig.savefig('results/results_4x.png', bbox_inches='tight', dpi = 700)
 plt.show()
 plt.close()
