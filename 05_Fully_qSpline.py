@@ -55,6 +55,8 @@ tab.to_csv('results/table_full_qspline_results.csv', index = False)
 # hybrid Qspline
 fig = plt.figure()
 ax = plt.subplot(121)
+
+
 ax.plot(d_sig.x, d_sig.classical_beta, color='orange', label = 'Classic spline', zorder=1)
 ax.plot(d_sig.x, d_sig.quantum_beta, color='steelblue',  label = 'Qspline')
 ax.plot(d_sig.x, d_sig.y, label='Activation', color = 'sienna', linestyle='dotted', dashes=(1,1.5), zorder=2, linewidth=3)
@@ -65,6 +67,8 @@ ax.grid(alpha = 0.3)
 # ax.set_xlabel(r'x')
 ax.set_ylabel(r'$f(x)$', rotation = 0)
 ax.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
+ax.text(0.6, 0.1, 'Sigmoid',
+        transform=ax.transAxes, ha="left")
 
 
 ax1 = plt.subplot(122)
@@ -78,6 +82,8 @@ ax1.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
 handles, labels = ax.get_legend_handles_labels()
 fig.legend(handles, labels, loc='lower center', bbox_to_anchor=(0.5, -.05),
            ncol = 4, borderaxespad=-0.5)
+ax1.text(0.80, 0.1, 'Tanh',
+        transform=ax1.transAxes, ha="left")
 plt.savefig('results/full_qSpline.png', dpi =1000)
 plt.show()
 plt.close()
