@@ -19,7 +19,7 @@ x_fid = data_fid.x
 fid = data_fid.Fidelity
 
 
-fig = plt.figure(figsize=(6,2.5))
+fig = plt.figure(figsize=(6,2.3))
 
 # Full Qspline
 ax = plt.subplot(121)
@@ -30,7 +30,7 @@ ax.scatter(x_fid, fid, color = 'cornflowerblue', label = 'Fidelity', s = 10)
 ax.set_xlim(-1.1, 1.1)
 ax.grid(alpha = 0.3)
 ax.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
-ax.text(0.6, 0.1, 'Sigmoid',
+ax.text(0.65, 0.1, 'Sigmoid',
         transform=ax.transAxes, ha="left")
 
 
@@ -67,13 +67,9 @@ ax1.scatter(x_fid, fid, color = 'cornflowerblue', label = 'Fidelity', s = 10)
 ax1.set_xlim(-1.1, 1.1)
 ax1.grid(alpha = 0.3)
 ax1.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
-ax1.text(0.8, 0.1, 'Tanh',
+ax1.text(0.75, 0.1, 'Tanh',
         transform=ax1.transAxes, ha="left")
-#fig.tight_layout(pad=.03)
-# handles, labels = ax1.get_legend_handles_labels()
-# fig.legend(handles, labels, loc='upper center',
-#            ncol = 4, bbox_to_anchor=(0.47, 1.05), borderaxespad=0.)
-plt.savefig('results/Full_Qspline.png', dpi = 700, bbox_inches='tight')
+plt.savefig('results/Full_Qspline.png', dpi = 400, bbox_inches='tight')
 plt.show()
 plt.close()
 

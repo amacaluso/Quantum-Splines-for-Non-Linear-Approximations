@@ -110,3 +110,11 @@ def dot_product(x, weights):
     P0 = quantum_prob
 
     return np.sqrt(2 * (P0 - 1 / 2))
+
+def find_N(spar, cond_num):
+    from scipy.special import lambertw
+    import numpy as np
+    w = lambertw(- np.log(2) / (spar * cond_num * np.sqrt(cond_num)), k=-1)
+    return (- spar * cond_num * np.sqrt(cond_num) * w / np.log(2))
+
+

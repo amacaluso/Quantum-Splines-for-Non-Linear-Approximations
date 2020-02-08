@@ -28,7 +28,7 @@ ax1.grid(alpha = 0.3)
 # ax.set_xlabel(r'x')
 # ax3.set_ylabel(r'$f(x)$', rotation = 0)
 ax1.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
-ax1.text(0.70, 0.1, 'Sigmoid',
+ax1.text(0.68, 0.1, 'Sigmoid',
         transform=ax1.transAxes, ha="left")
 
 
@@ -50,7 +50,7 @@ ax2.scatter(x_fid, data_fid.tanh, color = 'cornflowerblue', label = 'Fidelity', 
 ax2.set_xlim(-1.1, 1.1)
 ax2.grid(alpha = 0.3)
 ax2.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
-ax2.text(0.80, 0.1, 'Tanh',
+ax2.text(0.78, 0.1, 'Tanh',
         transform=ax2.transAxes, ha="left")
 
 
@@ -73,7 +73,7 @@ ax3.grid(alpha = 0.3)
 # ax3.set_ylabel(r'$f(x)$', rotation = 0)
 ax3.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
 ax3.set_yticks(np.round(np.arange(-.2, 1.1, .4),1).tolist())
-ax3.text(0.80, 0.1, 'Relu',
+ax3.text(0.78, 0.1, 'Relu',
         transform=ax3.transAxes, ha="left")
 
 
@@ -94,7 +94,7 @@ ax4.set_xlim(-1.1, 1.1)
 ax4.grid(alpha = 0.3)
 ax4.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
 ax4.set_yticks(np.round(np.arange(-.2, 1.1, .4),1).tolist())
-ax4.text(0.80, 0.1, 'Elu',
+ax4.text(0.83, 0.1, 'Elu',
         transform=ax4.transAxes, ha="left")
 #fig.subplots_adjust(top=.9, left=0.1, right=0.9, bottom=.3)
 # create some space below the plots by increasing the bottom-value

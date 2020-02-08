@@ -1,8 +1,8 @@
 from Utils import *
 
 ## Tanh
-# def function(x, c = 1):
-#   return (c + np.tanh(x))*c/2
+def function(x, c = 1):
+  return (c + np.tanh(x))*c/2
 # label_function = 'tanh'
 # execfile('06_quantum_splines.py')
 
@@ -26,7 +26,6 @@ d_tanh.y = y
 d_tanh.quantum_beta = (d_tanh.quantum_beta*2)-1
 d_tanh.classical_beta = (d_tanh.classical_beta*2)-1
 #######################################################
-
 
 
 rss_quantum = [np.sum(np.square(d_sig.y - d_sig.quantum_beta)),
