@@ -1,8 +1,4 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import random
-import pandas as pd
-from sklearn.linear_model import LinearRegression
+# Reference CG, qubic spline, equazione 6 equazione paragrafo 1
 
 # to do: mettere il grafico sul condition num in funzione di lambda
 # verificare definizione esatta di k e s
@@ -56,7 +52,7 @@ from sklearn.linear_model import LinearRegression
 
 
 from Utils import *
-
+find_N(3,10)
 
 # to do: mettere il grafico sul condition num in funzione di lambda
 # verificare definizione esatta di k e s
@@ -86,7 +82,7 @@ cost_conju = N_hhl*s_fixed*np.sqrt(k)
 
 treshold = find_N(s_fixed, k)
 #plt.tight_layout()
-plt.figure(figsize=(6,4))
+plt.figure(figsize=(6,3.5))
 plt.fill_between(N, cost_hhl_dw, cost_hhl_up, color = 'lightblue',
                      label = 'HHL (no assumptions)', alpha = 0.3  )
 plt.plot(N, cost_gauss, label = 'Gauss-Jordan', color='blue', linestyle = 'dotted')
@@ -96,20 +92,20 @@ plt.plot(N, cost_coppersmith, label = 'Coppersmith', color='royalblue',
 plt.scatter(N_hhl, cost_conju, label = 'Conjugate Gradient', color='limegreen', marker='+', s=15 )
 plt.scatter(N_hhl, (np.log2(N_hhl))*(k**pow_k)*(s_fixed**pow_s), label = 'HHL',
             color='seagreen', marker='+', s=15) #linestyle='--', linewidth=.0001)
-plt.xlabel(r'$n$')
-plt.ylabel('Cost Complexity')
+plt.xlabel(r'System size $(n)$')
+plt.ylabel('Cost Complexity (hundreds operations)')
 plt.xlim(-1, 80)
 plt.ylim(-1, 500)
 plt.grid(alpha=0.3)
 plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
 plt.axvline(treshold, color = 'lightgrey', linestyle = (0, (3, 5, 1, 5)))
 # Put a legend below current axis
-plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.35), ncol =3, fontsize=10)
+plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.4), ncol =3, fontsize=10)
 plt.xticks([0, 10, 20 ,30, 40, 50, 60, 70, 80 ], ha='left')
 plt.tick_params(labelsize=12)
-plt.text(81, 95, r'$s = 1$')
-plt.text(81, 220, r'$s = 3$')
-plt.text(6, 510, r'$s = n$')
+plt.text(81, 95, r'$s = 1$', color='grey')
+plt.text(81, 220, r'$s = 3$', color='grey')
+plt.text(6, 510, r'$s = n$', color='grey')
 plt.text(treshold-2, -30, "{}".format(int(treshold)), color = 'grey')
 #plt.yscale('log')
 plt.savefig('results/complexity.png', bbox_inches='tight', dpi =400)

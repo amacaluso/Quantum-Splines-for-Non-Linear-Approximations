@@ -1,8 +1,8 @@
 from Utils import *
 
 ## Tanh
-def function(x, c = 1):
-  return (c + np.tanh(x))*c/2
+# def function(x, c = 1):
+#   return (c + np.tanh(x))*c/2
 # label_function = 'tanh'
 # execfile('06_quantum_splines.py')
 
@@ -15,8 +15,8 @@ def function(x, c = 1):
 # execfile('06_quantum_splines.py')
 
 
-d_sig = pd.read_csv('results/sigmoid_full_data.csv')
-d_tanh = pd.read_csv('results/tanh_full_data.csv')
+# d_sig = pd.read_csv('results/sigmoid_full_data.csv')
+# d_tanh = pd.read_csv('results/tanh_full_data.csv')
 
 
 #######################################################

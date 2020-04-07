@@ -89,28 +89,8 @@ y_new = beta[0] + beta[1]*x_new +  beta[2]*x_new**2 + beta[3]*x_new**3
 
 print(y_new)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from qiskit import BasicAer
 from qiskit.aqua import QuantumInstance
-from qiskit.aqua.algorithms.single_sample import HHL
-from qiskit.aqua.utils import random_hermitian
-from qiskit import BasicAer
-from qiskit.aqua import QuantumInstance
-from qiskit.quantum_info import state_fidelity
 from qiskit.aqua.algorithms import HHL, ExactLSsolver
 from qiskit.aqua.components.eigs import EigsQPE
 from qiskit.aqua.components.qfts import Standard as StandardQFTS

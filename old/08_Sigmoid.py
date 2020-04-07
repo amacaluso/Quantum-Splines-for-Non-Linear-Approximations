@@ -4,9 +4,13 @@ label_function = 'sigmoid'
 
 '''Curve'''
 data = pd.read_csv('results/'+label_function +'_data.csv')
-
-sig_y = data.y
 x = data.x
+
+## Sigmoid
+def function(x, c = 0):
+  return c + 1 / (1 + math.exp(-4*x))
+
+sig_y =  [function(i) for i in x]
 
 y_qspline = data.quantum_beta
 y_cspline = data.classical_beta

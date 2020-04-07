@@ -9,11 +9,14 @@ upper = 1
 step = .1
 
 
+
+label_function = 'elu'
+
 ## Elu
 def function(z,alpha = .3, c = .3):
 	return c + z if z >= 0 else c + alpha*(e**z -1)
-label_function = 'elu'
-execfile('04_experiments_act_fun.py')
+
+execfile('experiments_act_fun.py')
 
 data.quantum_beta = data.quantum_beta - 1
 data.classical_beta = data.classical_beta - 1
@@ -45,8 +48,11 @@ data_fid_tanh = F.copy()
 ## Relu
 def function(x, c = 1):
   return c + max(0.0, x)
+
 label_function = 'relu'
+
 execfile('04_experiments_act_fun.py')
+
 data.quantum_beta = data.quantum_beta - 1
 data.classical_beta = data.classical_beta - 1
 data['label'] = label_function

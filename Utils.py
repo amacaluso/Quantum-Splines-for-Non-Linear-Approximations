@@ -6,6 +6,7 @@ import random
 from pylab import *
 from scipy.interpolate import CubicSpline, splev, splrep
 import math
+import numpy as np
 
 
 from qiskit.aqua import run_algorithm
@@ -111,10 +112,30 @@ def dot_product(x, weights):
 
     return np.sqrt(2 * (P0 - 1 / 2))
 
+
 def find_N(spar, cond_num):
     from scipy.special import lambertw
     import numpy as np
     w = lambertw(- np.log(2) / (spar * cond_num * np.sqrt(cond_num)), k=-1)
     return (- spar * cond_num * np.sqrt(cond_num) * w / np.log(2))
+
+
+# ## Relu
+# def relu(vector, c = 0, normalisation = True):
+#     y = [c + max(0.0, x) for x in vector]
+#     if normalisation:
+#         y_norm = (y - np.min(y))/(np.max(y)-np.min(y))
+#         return y_norm
+#     else:
+#         return y
+#
+# ## Elu
+# def elu(vector, alpha = .3, c = 0, normalisation = True):
+#     y = [c + z if z >= 0 else c + alpha * (e ** z - 1) for z in vector]
+#     if normalisation:
+#         y_norm =  (y - np.min(y))/(np.max(y)-np.min(y))
+#         return y_norm
+#     else:
+#         return y
 
 
