@@ -1,10 +1,10 @@
 from Utils_Spline import *
 
-execfile('Sigmoid.py')
-execfile('Tanh.py')
-execfile('Relu.py')
-execfile('Elu.py')
-execfile('Elu_v2.py')
+# execfile('Sigmoid.py')
+# execfile('Tanh.py')
+# execfile('Relu.py')
+# execfile('Elu.py')
+# execfile('Elu_v2.py')
 
 def viz_all(approach = 'Hybrid'):
 
@@ -24,7 +24,7 @@ def viz_all(approach = 'Hybrid'):
     x, y, qy, cy, x_fid, fid = load_data('elu', approach)
     single_plot(4, x, y, qy, cy, x_fid, fid, 'Elu', coord=[0.83, 0.1])
 
-    fig.savefig('results/' +'all_' + approach + '.png', dpi = 500)
+    fig.savefig('results/' +'all_' + approach + '.png', dpi = 500, bbox_inches='tight')
     plt.show()
     plt.close()
 
@@ -34,28 +34,61 @@ viz_all(approach = 'Full')
 #### Performance Analysis
 
 
-rss_quantum = [
-    np.sum(np.square(data.y_sig - data.sig_quantum)),
-    np.sum(np.square(data.y_tanh - data.tanh_quantum)),
-    np.sum(np.square(data.y_relu - data.relu_quantum)),
-    np.sum(np.square(data.y_elu - data.elu_quantum))]
+def performance(path='results/table_performance.csv'):
 
-rss_classic = [
-    np.sum(np.square(data.y_sig - data.sig_classical)),
-    np.sum(np.square(data.y_tanh - data.tanh_classical)),
-    np.sum(np.square(data.y_relu - data.relu_classical)),
-    np.sum(np.square(data.y_elu - data.elu_classical))]
+    x, y, qy, cy, x_fid, fid = load_data('sigmoid', 'Hybrid')
+    rss_sig_hybrid = np.sum(np.square(y - qy))
+    rss_sig_classic = np.sum(np.square(y - cy))
+    h_sig_fid = fid
 
-fid_avg = [ np.average(data_fid.sig), np.average(data_fid.tanh),
-            np.average(data_fid.relu), np.average(data_fid.elu)]
+    x, y, qy, cy, x_fid, fid = load_data('tanh', 'Hybrid')
+    rss_tanh_hybrid = np.sum(np.square(y - qy))
+    rss_tanh_classic = np.sum(np.square(y - cy))
+    h_tanh_fid = fid
+
+    x, y, qy, cy, x_fid, fid = load_data('relu', 'Hybrid')
+    rss_relu_hybrid = np.sum(np.square(y - qy))
+    rss_relu_classic = np.sum(np.square(y - cy))
+    h_relu_fid = fid
+
+    x, y, qy, cy, x_fid, fid = load_data('elu', 'Hybrid')
+    rss_elu_hybrid = np.sum(np.square(y - qy))
+    rss_elu_classic = np.sum(np.square(y - cy))
+    h_elu_fid = fid
+
+    x, y, qy, cy, x_fid, fid = load_data('sigmoid', 'Full')
+    rss_sig_full = np.sum(np.square(y - qy))
+    f_sig_fid = fid
+
+    x, y, qy, cy, x_fid, fid = load_data('tanh', 'Full')
+    rss_tanh_full = np.sum(np.square(y - qy))
+    f_tanh_fid = fid
+
+    x, y, qy, cy, x_fid, fid = load_data('relu', 'Full')
+    rss_relu_full = np.sum(np.square(y - qy))
+    f_relu_fid = fid
+
+    x, y, qy, cy, x_fid, fid = load_data('elu', 'Full')
+    rss_elu_full = np.sum(np.square(y - qy))
+    f_elu_fid = fid
+
+    rss_hybrid = [rss_sig_hybrid, rss_tanh_hybrid, rss_relu_hybrid, rss_elu_hybrid]
+    rss_full = [rss_sig_full, rss_tanh_full, rss_relu_full, rss_elu_full]
+
+    rss_classic = [rss_sig_classic, rss_tanh_classic, rss_relu_classic, rss_elu_classic]
+    fid_avg_hybrid = [ np.average(h_sig_fid), np.average(h_tanh_fid),np.average(h_relu_fid), np.average(h_elu_fid)]
+    fid_avg_full = [ np.average(f_sig_fid), np.average(f_tanh_fid),np.average(f_relu_fid), np.average(f_elu_fid)]
 
 
-tab = pd.DataFrame([pd.Series(['Sigmoid', 'Tanh', 'Relu', 'Elu']),
-                    pd.Series(rss_classic),
-                    pd.Series(rss_quantum),
-                    pd.Series(fid_avg)])
+    tab = pd.DataFrame([pd.Series(['Sigmoid', 'Tanh', 'Relu', 'Elu']),
+                        pd.Series(rss_classic), pd.Series(rss_hybrid),
+                        pd.Series(rss_full), pd.Series(fid_avg_hybrid), pd.Series(fid_avg_full)])
 
-tab = tab.transpose()
-tab.columns = ['Function', 'RSS (classic)', 'RSS(quantum)', 'AVG Fidelity']
+    tab = tab.transpose()
+    tab.columns = ['Function', 'RSS (classic)', 'RSS (hybrid)', 'RSS (full)',
+                   'AVG Fidelity (hybrid)', 'AVG Fidelity (full)']
 
-tab.to_csv('results/table_results.csv', index = False)
+    tab.to_csv(path, index = False)
+    return tab
+
+tab = performance()

@@ -64,10 +64,10 @@ def coeff_splines_estimation(x, y, label, saving = True):
     return df
 
 def estimate_function(data, function, label, c = 0, step = 0.05):
-    # data = relu_coef
-    # function = relu
-    # label = 'relu'
-    # step = .5
+    # data = data_coef
+    # function = sigmoid
+    # label = 'sigmoid'
+    # step = .1
     # c=0
 
     interval = data.lower.tolist() + data.upper.tolist()
@@ -76,7 +76,7 @@ def estimate_function(data, function, label, c = 0, step = 0.05):
     # Sampling points within intervals
     X = []
     for i in range(1, len(interval)):
-        X.append(np.arange(interval[i-1], interval[i], step-0.1).tolist())
+        X.append(np.arange(interval[i-1], interval[i], step-0.01).tolist())
 
     # Function estimation - quantum and classical
     q_beta = [[b0, b1] for b0, b1 in zip(data.q_beta0, data.q_beta1)]
@@ -147,7 +147,7 @@ def plot_activation(label, data, data_coef, full = True):
     ax.set_xticks(np.round(np.arange(-1, 1.1, .4), 1).tolist())
     ax.text(0.65, 0.1, label,
             transform=ax.transAxes, ha="left")
-    plt.legend()
+    plt.legend(loc = 'best')
     plt.savefig('results/' + label + '_'+ type +'.png', dpi =300)
     plt.show()
     plt.close()
@@ -162,10 +162,10 @@ def single_plot( i, x, y, qy, cy, x_fid, fid, label, coord = [0.68, .1]):
     ax.plot(x, cy, label='Activation', color = 'sienna', linestyle='dotted', dashes=(1,1.5), zorder=2, linewidth=3)
     ax.scatter(x_fid, fid, color = 'cornflowerblue', label = 'Fidelity', s = 10)
     ax.set_xlim(-1.1, 1.1)
-    ax.set_ylim(-.2, 1.05)
+    #ax.set_ylim(-.2, 1.05)
     ax.grid(alpha = 0.3)
     ax.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
-    ax.set_yticks(np.round(np.arange(-.2, 1.05, .2),1).tolist())
+    #ax.set_yticks(np.round(np.arange(-.2, 1.05, .2),1).tolist())
     ax.text(coord[0], coord[1], label, transform=ax.transAxes, ha="left")
 
 

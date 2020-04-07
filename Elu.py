@@ -10,7 +10,7 @@ step = .1
 
 label = 'elu'
 def elu(z, c = 0, alpha = .3):
-	return + z if z >= 0 else c + alpha*(e**z -1)
+	return c + z if z >= 0 else c + alpha*(e**z -1)
 
 x = np.arange(lower, upper + .03, step).tolist()
 y = [ elu(value) for value in x]
@@ -24,7 +24,7 @@ data_est = estimate_function(data_coef, elu, label, c = 0, step=step)
 data_est.full_quantum = data_est.full_quantum * range + np.min(y)
 data_est.hybrid_quantum = data_est.hybrid_quantum * range + np.min(y)
 data_est.classical_spline = data_est.classical_spline * range + np.min(y)
-
+data_est.to_csv('results/elu_estimates.csv', index = False)
 
 plot_activation(label, data_est, data_coef, full = True)
 plot_activation(label, data_est, data_coef, full = False)
