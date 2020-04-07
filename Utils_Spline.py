@@ -91,8 +91,8 @@ def estimate_function(data, function, label, c = 0, step = 0.05):
             point = [1, x]
             coeffs = q_beta[i]
             full_qy.append(dot_product(point, coeffs))
-            hybrid_qy.append(c_beta[i][0] + x * c_beta[i][1])
-            cy.append(q_beta[i][0] + x * q_beta[i][1])
+            cy.append(c_beta[i][0] + x * c_beta[i][1])
+            hybrid_qy.append(q_beta[i][0] + x * q_beta[i][1])
 
     full_qy = [0 if math.isnan(x) else x for x in full_qy]
 
@@ -151,3 +151,36 @@ def plot_activation(label, data, data_coef, full = True):
     plt.savefig('results/' + label + '_'+ type +'.png', dpi =300)
     plt.show()
     plt.close()
+
+
+
+
+def single_plot( i, x, y, qy, cy, x_fid, fid, label, coord = [0.68, .1]):
+    ax = plt.subplot(int(str(22)+ str(i)))
+    ax.plot(x, y, color='orange', label = 'Classic spline', zorder=1)
+    ax.plot(x, qy, color='steelblue',  label = 'QSpline')
+    ax.plot(x, cy, label='Activation', color = 'sienna', linestyle='dotted', dashes=(1,1.5), zorder=2, linewidth=3)
+    ax.scatter(x_fid, fid, color = 'cornflowerblue', label = 'Fidelity', s = 10)
+    ax.set_xlim(-1.1, 1.1)
+    ax.set_ylim(-.2, 1.05)
+    ax.grid(alpha = 0.3)
+    ax.set_xticks(np.round(np.arange(-1, 1.1, .4),1).tolist())
+    ax.set_yticks(np.round(np.arange(-.2, 1.05, .2),1).tolist())
+    ax.text(coord[0], coord[1], label, transform=ax.transAxes, ha="left")
+
+
+
+def load_data(label='sigmoid', approach='Hybrid'):
+    data_fid = pd.read_csv('results/' + label + '_full.csv')
+    data = pd.read_csv('results/' + label + '_estimates.csv')
+
+    x = data.x
+    y = data.y
+    cy = data.classical_spline
+    if approach == 'Hybrid':
+        qy = data.hybrid_quantum
+    else:
+        qy = data.full_quantum
+    x_fid = (data_fid.lower + data_fid.upper) / 2
+    fid = data_fid.fidelity
+    return x, y, qy, cy, x_fid, fid

@@ -3,7 +3,7 @@ from Utils_Spline import *
 
 lower = -1.
 upper = 1.
-step = .5
+step = .1
 
 
 ## Definition of the interval of B-Spline
