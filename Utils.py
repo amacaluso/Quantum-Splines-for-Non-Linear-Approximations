@@ -1,35 +1,13 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-from sklearn.linear_model import LinearRegression
-import seaborn as sns
-import random
 from pylab import *
-from scipy.interpolate import CubicSpline, splev, splrep
-import math
 import numpy as np
 
-
-from qiskit.aqua import run_algorithm
-from qiskit.aqua.input import LinearSystemInput
+import numpy as np
+from pylab import *
+from qiskit import BasicAer, execute
 from qiskit.quantum_info import state_fidelity
-from qiskit.aqua.algorithms.classical import ExactLSsolver
-from qiskit.quantum_info import state_fidelity
-from qiskit import BasicAer
-from qiskit.aqua import QuantumInstance
-from qiskit.aqua.algorithms.single_sample import HHL
-from qiskit.aqua.utils import random_hermitian
-import qiskit
-from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
-from qiskit import IBMQ, Aer, BasicAer, execute
 
 
-import matplotlib.artist as artists
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import savefig
-import math
-
-
-def normalize_custom(x, C =1):
+def normalize_custom(x, C=1):
     M = x[0] ** 2 + x[1] ** 2
     x_normed = [
         1 / np.sqrt(M * C) * complex(x[0], 0),  # 00
@@ -37,14 +15,14 @@ def normalize_custom(x, C =1):
     ]
     return x_normed
 
+
 def fidelity(hhl, ref):
+    """Computes the fidelity between two vectors """
     solution_hhl_normed = hhl / np.linalg.norm(hhl)
     solution_ref_normed = ref / np.linalg.norm(ref)
     fidelity = state_fidelity(solution_hhl_normed, solution_ref_normed)
     print("fidelity %f" % fidelity)
     return fidelity
-
-
 
 
 params = {
@@ -54,24 +32,15 @@ params = {
              'expansion_order': 2,
              'name': 'EigsQPE',
              'num_ancillae': 3,
-             'num_time_slices': 50 },
-    'reciprocal': { 'name': 'Lookup'},
-    'backend': { 'provider': 'qiskit.BasicAer',
-                 'name': 'statevector_simulator'}
+             'num_time_slices': 50},
+    'reciprocal': {'name': 'Lookup'},
+    'backend': {'provider': 'qiskit.BasicAer',
+                'name': 'statevector_simulator'}
 }
-
-def cube_data(x):
-    return pd.Series([1, x, x**2, x**3])
-
-
-def lin_data(x):
-    return pd.Series([1, x])
-
-def quad_data(x):
-    return pd.Series([1, x, x**2])
 
 
 def dot_product(x, weights):
+    """Computes the quantum dot product between two vectors"""
     # Quantum Circuit for Cosine-distance classifier
     from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
     c = ClassicalRegister(1)
@@ -114,28 +83,9 @@ def dot_product(x, weights):
 
 
 def find_N(spar, cond_num):
+    """ Find the datasize for which the HHL is more convenient wrt the Conjugate Gradient,
+        according to Lambert W solution"""
     from scipy.special import lambertw
     import numpy as np
     w = lambertw(- np.log(2) / (spar * cond_num * np.sqrt(cond_num)), k=-1)
     return (- spar * cond_num * np.sqrt(cond_num) * w / np.log(2))
-
-
-# ## Relu
-# def relu(vector, c = 0, normalisation = True):
-#     y = [c + max(0.0, x) for x in vector]
-#     if normalisation:
-#         y_norm = (y - np.min(y))/(np.max(y)-np.min(y))
-#         return y_norm
-#     else:
-#         return y
-#
-# ## Elu
-# def elu(vector, alpha = .3, c = 0, normalisation = True):
-#     y = [c + z if z >= 0 else c + alpha * (e ** z - 1) for z in vector]
-#     if normalisation:
-#         y_norm =  (y - np.min(y))/(np.max(y)-np.min(y))
-#         return y_norm
-#     else:
-#         return y
-
-
