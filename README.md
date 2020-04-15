@@ -14,3 +14,7 @@ The script *Utils.py* contains the import of the needed packages and all the cus
 
 The script *Utils_Spline.py* contains the custom routines for B-Spline coefficients estimates.
 
+The script *Viz_complexity.py* plots the comparison in terms of computational complexity between quantum HHL and classical algorithm for matrix inversion.
+
+The script *All_viz.py* plots in one plot all the activation functions.
+
