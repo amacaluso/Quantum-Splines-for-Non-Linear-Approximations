@@ -10,6 +10,13 @@ step = .1
 c = .3
 label = 'elu'
 def elu(z, c = 0, alpha = .3):
+	"""
+	 Compute the value of the elu function with parameter c, for a given point x.
+
+	 :param x: (float) input coordinate
+	 :param c: (float) shifting parameter
+	 :return: (float) the value of the elu function
+	 """
 	return c + z if z >= 0 else c + alpha*(e**z -1)
 
 x = np.arange(lower, upper + .03, step).tolist()
