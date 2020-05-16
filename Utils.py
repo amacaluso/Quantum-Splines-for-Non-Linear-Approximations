@@ -1,10 +1,14 @@
 from pylab import *
 import numpy as np
 
-import numpy as np
-from pylab import *
+import pandas as pd
 from qiskit import BasicAer, execute
 from qiskit.quantum_info import state_fidelity
+from qiskit.aqua.input import LinearSystemInput
+from qiskit.aqua import run_algorithm
+from qiskit.quantum_info import state_fidelity
+from qiskit.aqua.algorithms.classical import ExactLSsolver
+import numpy as np
 
 
 def normalize_custom(x, C=1):
@@ -37,7 +41,28 @@ params = {
     'backend': {'provider': 'qiskit.BasicAer',
                 'name': 'statevector_simulator'}
 }
-
+# params = {
+#     'problem': {
+#         'name': 'linear_system'
+#     },
+#     'algorithm': {
+#         'name': 'HHL'
+#     },
+#     'eigs': {
+#         'expansion_mode': 'suzuki',
+#         'expansion_order': 1,
+#         'name': 'EigsQPE',
+#         'num_ancillae': 3,
+#         'num_time_slices': 1
+#     },
+#     'reciprocal': {
+#         'name': 'Lookup'
+#     },
+#     'backend': {
+#         'provider': 'qiskit.BasicAer',
+#         'name': 'statevector_simulator'
+#     }
+# }
 
 def dot_product(x, weights):
     """Computes the quantum dot product between two vectors"""
@@ -70,7 +95,7 @@ def dot_product(x, weights):
     job = execute(qc, sim_backend, shots=8192)
     results = job.result()
     answer = results.get_counts(qc)
-    print(answer)
+    # print(answer)
 
     if len(answer) == 1:
         quantum_prob = 1

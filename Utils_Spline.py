@@ -37,6 +37,7 @@ def coeff_splines_estimation(x, y, label, saving=True):
         matrix = m.to_numpy().tolist()
         vector = y
 
+
         params['input'] = {
             'name': 'LinearSystemInput',
             'matrix': matrix,
@@ -174,6 +175,7 @@ def single_plot(i, x, y, qy, cy, x_fid, fid, label, coord=[0.68, .1]):
 
 
 def load_data(label='sigmoid', approach='Hybrid'):
+    import pandas as pd
     data_fid = pd.read_csv('results/' + label + '_full.csv')
     data = pd.read_csv('results/' + label + '_estimates.csv')
 
