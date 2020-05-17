@@ -7,7 +7,7 @@ step = .1
 
 
 ## Definition of the interval of B-Spline
-c = 1
+c = .3
 label = 'elu'
 def elu(z, c = 0, alpha = .3):
 	"""

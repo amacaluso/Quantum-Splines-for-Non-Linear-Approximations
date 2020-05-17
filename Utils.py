@@ -114,3 +114,13 @@ def find_N(spar, cond_num):
     import numpy as np
     w = lambertw(- np.log(2) / (spar * cond_num * np.sqrt(cond_num)), k=-1)
     return (- spar * cond_num * np.sqrt(cond_num) * w / np.log(2))
+
+
+import os
+
+def create_dir(path):
+    if not os.path.exists(path):
+        print('The directory', path, 'does not exist and will be created')
+        os.makedirs(path)
+    else:
+        print('The directory', path, ' already exists')
