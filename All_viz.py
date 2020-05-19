@@ -24,6 +24,7 @@ def viz_all(approach = 'Hybrid'):
     x, y, qy, cy, x_fid, fid = load_data('elu', approach)
     single_plot(4, x, y, qy, cy, x_fid, fid, 'Elu', coord=[0.83, 0.1])
 
+
     fig.savefig('results/' +'all_' + approach + '.png', dpi = 500, bbox_inches='tight')
     plt.show()
     plt.close()
