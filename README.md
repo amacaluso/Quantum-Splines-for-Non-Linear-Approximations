@@ -1,6 +1,6 @@
 # Quantum Spline
 
-This repository contains the code to reproduce the results in the paper [Quantum Splines for Non-Linear Approximation](https://doi.org/10.1145/3387902.3394032),
+This repository contains the code to reproduce the results in the paper [Quantum Splines for Non-Linear Approximation](https://dl.acm.org/doi/pdf/10.1145/3387902.3394032),
 under publication on [ACM Digital Library](https://dl.acm.org/) for the [ACM International Conference on Computing Frontiers 2020](http://www.computingfrontiers.org/2020/).
 
 # Description
