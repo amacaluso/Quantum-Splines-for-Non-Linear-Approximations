@@ -7,8 +7,10 @@
 ### Data
 
 ### Results
-results/
+results
 
+# PyCharm
+.idea/
 
 #####	PYTHON'S gitignore TEMPLATE	#####
 
