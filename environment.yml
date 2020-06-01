@@ -1,0 +1,9 @@
+name: QSplines
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - numpy
+  - pandas
+  - pylab
+  - qiskit=0.13
