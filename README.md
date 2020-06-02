@@ -39,7 +39,7 @@ In order to run the code and reproduce the results of the paper, it is recommend
  
  `git clone https://github.com/amacaluso/Quantum_Spline.git`
  
-  - Second, create a conda environment fron scratch using the *environment.yml* specs:
+  - Second, create a conda environment from scratch using the *environment.yml* specs:
   
   ```
 # enter the repository
