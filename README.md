@@ -1,7 +1,7 @@
 # Quantum Spline
 
 This repository contains the code to reproduce the results presented in the paper 
-[Quantum Splines for Non-Linear Approximation](https://dl.acm.org/doi/pdf/10.1145/3387902.3394032),
+[Quantum Splines for Non-Linear Approximations](https://dl.acm.org/doi/pdf/10.1145/3387902.3394032),
 published in the *Proceedings* of the 
 [17th ACM International Conference on Computing Frontiers (CF'20)](http://www.computingfrontiers.org/2020/) 
 and freely available on the [ACM Digital Library](https://dl.acm.org/doi/abs/10.1145/3387902.3394032).
@@ -17,15 +17,15 @@ namely *sigmoid*, *hyperbolic tangent (tanh)*, *rectified linear unit (relu)* an
 
 The code is organised in four different scripts, one per activation function. 
 Specifically, *Sigmoid.py, Tanh.py, Relu.py, Elu.py* compute a B-spline approximation of the corrispondent function using three approaches: 
-- *Full quantum*: uses the HHL quantum algorithm to estimates B-spline coeffients and a second quantum circuit for function evaluation
+- *Full quantum*: uses the HHL quantum algorithm to estimate B-spline coeffients and a second quantum circuit for function evaluation
 - *Quantum Hybrid*: uses the HHL algorithm to estimates B-Spline coefficients and classical approach for function evaluation
-- *Classical*: coefficients estimates and function evaluation are performed under the classical computing paradigm
+- *Classical*: coefficient estimates and function evaluation are performed under the classical computing paradigm
 
 The script *Utils.py* is used to import the needed packages and all of the custom routines for function evaluation.
 
 The script *Utils_Spline.py* contains the custom routines for B-Spline coefficients estimation.
 
-The script *Viz_complexity.py* plots the comparison between quantum HHL and classical algorithm for matrix inversion in terms of computational complexity.
+The script *Viz_complexity.py* plots the comparison between quantum HHL and classical algorithms for matrix inversion in terms of computational complexity.
 
 The script *All_viz.py* plots in one plot all the activation functions.
 

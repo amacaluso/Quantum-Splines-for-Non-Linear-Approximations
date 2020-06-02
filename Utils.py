@@ -52,6 +52,8 @@ params = {
     'backend': {'provider': 'qiskit.BasicAer',
                 'name': 'statevector_simulator'}
 }
+
+# Use the commented version of the params dictionary for fast testing
 # params = {
 #     'problem': {
 #         'name': 'linear_system'
