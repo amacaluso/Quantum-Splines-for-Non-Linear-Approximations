@@ -58,3 +58,6 @@ conda activate QSplines
 pip install qiskit==0.13
 ```
 
+## Issues
+
+For any issues or questions related to the code, open a new git issue or send a mail to antonio.macaluso2@unibo.it
